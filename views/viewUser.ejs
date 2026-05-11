@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html
+  lang="en"
+  class="light-style layout-menu-fixed"
+  dir="ltr"
+  data-theme="theme-default"
+  data-assets-path="/assets/"
+  data-template="vertical-menu-template-free"
+>
+  <head>
+    <meta charset="utf-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1.0, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0"
+    />
+
+    <title>View Users | Node Admin Panel</title>
+
+    <meta name="description" content="" />
+
+    <!-- Favicon -->
+    <link rel="icon" type="image/x-icon" href="/assets/img/favicon/favicon.ico" />
+
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Public+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,500;1,600;1,700&display=swap"
+      rel="stylesheet"
+    />
+
+    <!-- Icons. Uncomment required icon fonts -->
+    <link rel="stylesheet" href="/assets/fonts/boxicons.css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.1/css/all.min.css" integrity="sha512-2SwdPD6INVrV/lHTZbO2nodKhrnDdJK9/kg2XD1r9uGqPo1cUbujc+IYdlYdEErWNu69gVcYgdxlmVmzTWnetw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <!-- Core CSS -->
+    <link rel="stylesheet" href="/assets/css/core.css" class="template-customizer-core-css" />
+    <link rel="stylesheet" href="/assets/css/theme-default.css" class="template-customizer-theme-css" />
+    <link rel="stylesheet" href="/assets/css/demo.css" />
+
+    <!-- Vendors CSS -->
+    <link rel="stylesheet" href="/assets/libs/perfect-scrollbar/perfect-scrollbar.css" />
+
+    <!-- Helpers -->
+    <script src="/assets/js/helpers.js"></script>
+    <script src="/assets/js/config.js"></script>
+  </head>
+
+  <body>
+    <!-- Layout wrapper -->
+    <div class="layout-wrapper layout-content-navbar">
+      <div class="layout-container">
+        <!-- Menu -->
+        <%- include('sidebar.ejs') %>
+        <!-- / Menu -->
+
+        <!-- Layout container -->
+        <div class="layout-page">
+          <!-- header -->
+          <%- include('header.ejs') %>
+          <!-- / header -->
+
+          <!-- Content wrapper -->
+          <div class="content-wrapper">
+            <!-- Content -->
+
+            <div class="container-xxl flex-grow-1 container-p-y">
+              <h4 class="fw-bold py-3 mb-4"><span class="text-muted fw-light">Tables /</span> View Users</h4>
+
+              <!-- Basic Bootstrap Table -->
+              <div class="card">
+                <h5 class="card-header">All Users</h5>
+                <div class="table-responsive" style="overflow: visible !important;">
+                  <table class="table">
+                    <thead>
+                      <tr>
+                        <th>Avatar</th>
+                        <th>Name</th>
+                        <th>Email</th>
+                        <th>Phone</th>
+                        <th>Role</th>
+                        <th>City</th>
+                        <th>Actions</th>
+                      </tr>
+                    </thead>
+                    <tbody class="table-border-bottom-0">
+                      <% users.forEach((user, index) => { %>
+                      <tr>
+                        <td>
+                          <div class="avatar avatar-md">
+                            <img src="<%= user.avatar || '/assets/img/avatars/1.png' %>" alt="Avatar" class="rounded" style="width: 50px; height: 50px; object-fit: cover;" />
+                          </div>
+                        </td>
+                        <td><strong><%= user.fname %> <%= user.lname %></strong></td>
+                        <td><%= user.email %></td>
+                        <td><%= user.phone %></td>
+                        <td><span class="badge bg-label-primary me-1"><%= user.role %></span></td>
+                        <td><%= user.city %></td>
+                        <td>
+                          <div class="dropdown <%= index >= users.length - 2 ? 'dropup' : '' %>">
+                            <button type="button" class="btn dropdown-toggle hide-arrow" data-bs-toggle="dropdown">
+                              <i class="fa-solid fa-ellipsis-vertical"></i>
+                            </button>
+                            <div class="dropdown-menu">
+                              <a class="dropdown-item" href="/edit-user/<%= user._id %>">
+                                <i class="fa-regular fa-pen-to-square"></i> Edit</a>
+                              <a class="dropdown-item" href="/delete-user/<%= user._id %>" onclick="return confirm('Are you sure?')">
+                                <i class="fa-regular fa-trash-can"></i> Delete</a>
+                            </div>
+                          </div>
+                        </td>
+                      </tr>
+                      <% }) %>
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+            </div>
+            <!-- / Content -->
+
+            <%- include('footer.ejs') %>
+            <div class="content-backdrop fade"></div>
+          </div>
+        </div>
+      </div>
+      <div class="layout-overlay layout-menu-toggle"></div>
+    </div>
+
+    <!-- Core JS -->
+    <script src="/assets/libs/jquery/jquery.js"></script>
+    <script src="/assets/libs/popper/popper.js"></script>
+    <script src="/assets/libs/bootstrap/bootstrap.js"></script>
+    <script src="/assets/libs/perfect-scrollbar/perfect-scrollbar.js"></script>
+    <script src="/assets/js/menu.js"></script>
+    <script src="/assets/js/main.js"></script>
+  </body>
+</html>
